@@ -4,6 +4,8 @@ Landing page de un solo scroll para Joaquín Pérez Gorostizu, coach físico en 
 
 **Stack:** React 18 + Vite (JSX, sin TypeScript) · Tailwind CSS · Framer Motion.
 
+**En vivo:** [joaquinperezgorostizu.pages.dev](https://joaquinperezgorostizu.pages.dev) — Cloudflare Pages, conectado al repo [Baltaaa/joacoperezweb](https://github.com/Baltaaa/joacoperezweb). Cada push a `main` dispara un build y deploy automático.
+
 ## Estructura
 
 ```
@@ -44,25 +46,22 @@ npm run preview
 
 ## Deploy a Cloudflare Pages (subdominio `*.pages.dev`)
 
-**Opción A — desde el dashboard (sin CLI):**
+Ya está configurado — este es el setup actual, por si hay que tocarlo o replicarlo:
 
-1. Subí este proyecto a un repo de GitHub/GitLab.
-2. En Cloudflare → **Workers & Pages** → **Create application** → **Pages** → **Connect to Git**.
-3. Elegí el repo. Configuración de build:
-   - **Framework preset:** Vite
+1. Cloudflare → **Workers & Pages** → **Create application** → **Pages** → **Connect to Git** → repo `Baltaaa/joacoperezweb`.
+2. **Framework preset:** React (Vite) — autocompleta:
    - **Build command:** `npm run build`
    - **Build output directory:** `dist`
-4. Deploy. Cloudflare te da una URL `https://<proyecto>.pages.dev`.
+3. **Production branch:** `main`.
+4. Deploy. Cada `git push` a `main` dispara un build y deploy automático — se ve en Cloudflare → proyecto → **Deployments**.
 
-**Opción B — con Wrangler CLI:**
+Deploy manual puntual (sin esperar al push), con Wrangler CLI:
 
 ```bash
 npm install -g wrangler
 npm run build
-wrangler pages deploy dist --project-name=joaquin-perez-gorostizu
+wrangler pages deploy dist --project-name=joaquinperezgorostizu
 ```
-
-Cada push a la rama configurada vuelve a buildear y desplegar automáticamente (opción A).
 
 ### Pasar a dominio propio (más adelante)
 
