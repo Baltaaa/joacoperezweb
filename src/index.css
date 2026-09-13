@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    background: theme('colors.ground');
+  }
+  body {
+    @apply bg-ground text-ink font-sans;
+    font-size: 15px;
+    line-height: 1.55;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-sans font-medium;
+  }
+  a {
+    @apply text-accent;
+  }
+  a:hover {
+    @apply text-accent-light;
+  }
+  ::selection {
+    background: rgb(145 132 217 / 0.3);
+  }
+  :focus-visible {
+    outline: 2px solid theme('colors.accent.DEFAULT');
+    outline-offset: 2px;
+  }
+}
+
+@layer utilities {
+  /* Tratamiento de foto característico del sistema Nocturne: funde la imagen
+     con el fondo oscuro (usado en el hero, ver Hero.jsx). */
+  .img-lighten {
+    mix-blend-mode: lighten;
+    background-color: transparent;
+  }
+
+  /* Separador que se desvanece 48px en cada punta en vez de cortar en seco. */
+  .divider-fade {
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgb(233 233 237 / 0.16) 48px,
+      rgb(233 233 237 / 0.16) calc(100% - 48px),
+      transparent
+    );
+  }
+
+  /* Oculta la scrollbar del carrusel de galería sin perder el scroll-snap. */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* ── Marquee (inspirado en el ticker de Spline) ────────────────────────────
+   Animación CSS pura (no JS por frame): el track se duplica una vez y se
+   desplaza -50%, así el loop es perfecto y perceptualmente infinito. Solo
+   anima `transform` — no dispara layout/paint, corre bien en gama baja. */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 26s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+  }
+}
